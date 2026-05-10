@@ -1,21 +1,3 @@
-
-
-Review
-
-README.md
-
-dashboard_plan.md
-
-page.tsx
-
-
-New project
-frontend
-app
-page.tsx
-
-
-
 const mockGames = [
   {
     awayTeam: "Boston Celtics",
@@ -23,8 +5,10 @@ const mockGames = [
     spread: "Celtics -4.5",
     moneyline: "BOS -180 / NYK +150",
     overUnder: "221.5",
+    sportsbookBaseline: "Market favors Celtics by multiple possessions",
     prediction: "Celtics cover",
-    confidence: "64%"
+    confidence: "64%",
+    resultStatus: "Pending"
   },
   {
     awayTeam: "Phoenix Suns",
@@ -32,8 +16,10 @@ const mockGames = [
     spread: "Nuggets -2.5",
     moneyline: "PHX +115 / DEN -135",
     overUnder: "228.0",
+    sportsbookBaseline: "Sportsbook expects a close high-scoring game",
     prediction: "Nuggets win",
-    confidence: "59%"
+    confidence: "59%",
+    resultStatus: "Covered"
   },
   {
     awayTeam: "Miami Heat",
@@ -41,8 +27,10 @@ const mockGames = [
     spread: "Bucks -3.0",
     moneyline: "MIA +125 / MIL -145",
     overUnder: "216.5",
+    sportsbookBaseline: "Market slightly favors Bucks at home",
     prediction: "Under 216.5",
-    confidence: "61%"
+    confidence: "61%",
+    resultStatus: "Did not cover"
   }
 ];
 
@@ -98,11 +86,24 @@ export default function Home() {
               </div>
 
               <div className="mt-5 rounded-md bg-slate-100 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Sportsbook Baseline
+                </p>
+                <p className="mt-1 text-sm font-medium text-slate-700">
+                  {game.sportsbookBaseline}
+                </p>
+              </div>
+
+              <div className="mt-4 rounded-md bg-slate-100 p-4">
                 <p className="text-sm text-slate-500">Mock model prediction</p>
                 <p className="mt-1 font-semibold">{game.prediction}</p>
                 <p className="mt-2 text-sm text-slate-600">
                   Confidence: {game.confidence}
                 </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Result Status
+                </p>
+                <p className="mt-1 text-sm font-medium">{game.resultStatus}</p>
               </div>
             </article>
           ))}
