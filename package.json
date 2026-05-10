@@ -1,0 +1,23 @@
+{
+  "name": "masters-thesis-final",
+  "version": "1.0.0",
+  "description": "Review",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arifur794/Masters-Thesis-final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arifur794/Masters-Thesis-final/issues"
+  },
+  "homepage": "https://github.com/Arifur794/Masters-Thesis-final#readme"
+}
