@@ -1,71 +1,106 @@
-import { mockGames } from "../data/mockGames";
+import { mockGames } from "./mockGames";
 
 export default function Home() {
+  const totalMockGames = mockGames.length;
+  const totalPredictions = mockGames.filter((game) => game.prediction).length;
+  const pendingResults = mockGames.filter(
+    (game) => game.resultStatus === "Pending"
+  ).length;
+
   return (
-    <main className="min-h-screen bg-slate-100 px-6 py-12 text-slate-900">
-      <p className="text-sm font-bold uppercase text-slate-500">
-        Masters-Thesis-Final
-      </p>
+    <main className="min-h-screen bg-slate-50 px-6 py-10 text-slate-900">
+      <section className="mx-auto max-w-6xl">
+        <div className="mb-8">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Masters-Thesis-final
+          </p>
+          <h1 className="mt-2 text-3xl font-bold">
+            NBA Betting Research Dashboard
+          </h1>
+          <p className="mt-3 max-w-2xl text-slate-600">
+            A small prototype for comparing future machine learning predictions
+            against sportsbook betting lines.
+          </p>
+        </div>
 
-      <h1 className="mt-2 text-5xl font-bold">
-        NBA Betting Research Dashboard
-      </h1>
-
-      <p className="mt-4 max-w-3xl text-lg">
-        A minimal mock dashboard for comparing future machine learning
-        predictions against sportsbook lines.
-      </p>
-
-      <section className="mt-10 grid gap-6 md:grid-cols-3">
-        {mockGames.map((game) => (
-          <div
-            key={game.id}
-            className="rounded-lg border border-slate-300 bg-white p-6 shadow-sm"
-          >
-            <p className="text-sm font-semibold text-slate-500">
-              Mock Game {game.id}
+        <div className="mb-6 grid gap-4 md:grid-cols-3">
+          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-sm font-medium text-slate-500">
+              Total Mock Games
             </p>
+            <p className="mt-2 text-2xl font-bold">{totalMockGames}</p>
+          </div>
+          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-sm font-medium text-slate-500">
+              Total Predictions
+            </p>
+            <p className="mt-2 text-2xl font-bold">{totalPredictions}</p>
+          </div>
+          <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="text-sm font-medium text-slate-500">
+              Pending Results
+            </p>
+            <p className="mt-2 text-2xl font-bold">{pendingResults}</p>
+          </div>
+        </div>
 
-            <h2 className="mt-3 text-2xl font-bold">{game.matchup}</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          {mockGames.map((game) => (
+            <article
+              key={`${game.awayTeam}-${game.homeTeam}`}
+              className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <p className="text-sm text-slate-500">Mock NBA Game</p>
+              <h2 className="mt-2 text-xl font-semibold">
+                {game.awayTeam} at {game.homeTeam}
+              </h2>
 
-            <div className="mt-8 space-y-4">
-              <div>
-                <p className="text-sm font-bold uppercase text-slate-500">
-                  Spread
-                </p>
-                <p className="font-bold">{game.spread}</p>
+              <div className="mt-5 space-y-3 text-sm">
+                <div className="flex justify-between gap-4">
+                  <span className="text-slate-500">Away team</span>
+                  <span className="font-medium">{game.awayTeam}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-slate-500">Home team</span>
+                  <span className="font-medium">{game.homeTeam}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-slate-500">Spread</span>
+                  <span className="font-medium">{game.spread}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-slate-500">Moneyline</span>
+                  <span className="font-medium">{game.moneyline}</span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="text-slate-500">Over/under</span>
+                  <span className="font-medium">{game.overUnder}</span>
+                </div>
               </div>
 
-              <div>
-                <p className="text-sm font-bold uppercase text-slate-500">
-                  Moneyline
-                </p>
-                <p className="font-bold">{game.moneyline}</p>
-              </div>
-
-              <div>
-                <p className="text-sm font-bold uppercase text-slate-500">
-                  Total
-                </p>
-                <p className="font-bold">{game.total}</p>
-              </div>
-
-              <div>
-                <p className="text-sm font-bold uppercase text-slate-500">
+              <div className="mt-5 rounded-md bg-slate-100 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                   Sportsbook Baseline
                 </p>
-                <p className="font-medium">{game.baseline}</p>
+                <p className="mt-1 text-sm font-medium text-slate-700">
+                  {game.sportsbookBaseline}
+                </p>
               </div>
 
-              <div>
-                <p className="text-sm font-bold uppercase text-slate-500">
+              <div className="mt-4 rounded-md bg-slate-100 p-4">
+                <p className="text-sm text-slate-500">Mock model prediction</p>
+                <p className="mt-1 font-semibold">{game.prediction}</p>
+                <p className="mt-2 text-sm text-slate-600">
+                  Confidence: {game.confidence}
+                </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
                   Result Status
                 </p>
-                <p className="font-medium">{game.resultStatus}</p>
+                <p className="mt-1 text-sm font-medium">{game.resultStatus}</p>
               </div>
-            </div>
-          </div>
-        ))}
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
